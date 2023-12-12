@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -9,6 +11,7 @@ type ErrorLog struct {
 	Project   primitive.ObjectID `json:"project,omitempty" bson:"project,omitempty"`
 	ErrorType string             `json:"error_type,omitempty" bson:"error_type,omitempty"`
 	Message   string             `json:"message,omitempty" bson:"message,omitempty"`
+	Date      time.Time          `json:"date" bson:"date"`
 }
 
 type Project struct {

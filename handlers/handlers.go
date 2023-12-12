@@ -4,15 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"net/http"
-	"osprey-backend/db"
-	"osprey-backend/models"
-	"time"
-
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
+	"net/http"
+	"osprey-backend/db"
+	"osprey-backend/models"
+	"time"
 )
 
 type ErrorLog struct {
@@ -44,6 +43,7 @@ func NewLog(w http.ResponseWriter, r *http.Request) {
 
 	var newLog models.ErrorLog
 	newLog.Project = project.ID
+	newLog.Date = time.Now()
 
 	err = json.NewDecoder(r.Body).Decode(&newLog)
 	if err != nil {
@@ -136,7 +136,7 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 
-	id, _ := primitive.ObjectIDFromHex(params["id"])
+	id, _ := primitive.ObjectIDFromHex(params["projId"])
 
 	filter := bson.M{"_id": id}
 
